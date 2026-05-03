@@ -1,23 +1,30 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: (template) → 1.0.0 (initial ratification)
+Version change: 1.0.0 → 1.1.0 (MINOR — Apollo Client and GraphQL added to Technology Stack
+and Development Standards as mandatory, non-negotiable technology choices)
 
-Added sections:
-  - Core Principles (5 principles)
-  - Technology Stack
-  - Development Standards
-  - Governance
+Modified principles: None (Principles I–V unchanged)
 
-Modified principles: N/A (new constitution)
-Removed sections: N/A (new constitution)
+Added sections: N/A
+
+Removed sections: N/A
+
+Technology Stack updates:
+  - Added: Apollo Client (latest stable) — GraphQL client for all backend communication
+
+Development Standards updates:
+  - Added: All backend communication MUST use Apollo Client GraphQL operations; direct
+    fetch/REST calls for game state are prohibited.
 
 Templates reviewed:
-  - .specify/templates/plan-template.md   ✅ No changes required — Constitution Check gate is a per-feature placeholder
-  - .specify/templates/spec-template.md   ✅ No changes required — generic structure compatible
-  - .specify/templates/tasks-template.md  ⚠️ Minor conflict: comment states tests are OPTIONAL; Principle IV mandates
-                                            component testing for all React components. Updated comment to reflect
-                                            that tests are mandatory per constitution.
+  - .specify/templates/plan-template.md   ✅ No changes required — Technical Context section
+                                           captures dependencies generically; planners will
+                                           reference Apollo Client per the updated constitution.
+  - .specify/templates/spec-template.md   ✅ No changes required — generic structure compatible.
+  - .specify/templates/tasks-template.md  ✅ No changes required — Foundational phase tasks will
+                                           include Apollo Client setup per constitution guidance.
+  - .specify/templates/commands/          ✅ No command files found; nothing to update.
 
 Deferred TODOs: None
 -->
@@ -31,7 +38,8 @@ Deferred TODOs: None
 This project MUST implement only the frontend of the Yahtzee game as a single-page application.
 The backend is out of scope for this repository. The frontend MUST NOT implement any game state
 persistence logic — state management and persistence are the exclusive responsibility of the
-backend service. All game state MUST be fetched from or committed to the backend API.
+backend service. All game state MUST be fetched from or committed to the backend via GraphQL
+operations through Apollo Client.
 
 ### II. Component Isolation
 
@@ -68,6 +76,7 @@ The following technology choices are non-negotiable for this project:
 - **Language**: TypeScript
 - **UI Library**: React
 - **Component Library**: Material UI (MUI) — latest stable version
+- **API Client**: Apollo Client (latest stable) — all backend communication via GraphQL
 - **Test Runner**: Vitest
 - **Testing Utilities**: React Testing Library (RTL)
 
@@ -76,7 +85,9 @@ Deviations from this stack require a constitutional amendment before any impleme
 ## Development Standards
 
 - React components MUST be placed in `src/components/`, one component per file.
-- The frontend communicates with a backend API for all game state; local persistence mechanisms
+- All backend communication MUST use Apollo Client GraphQL operations (queries, mutations,
+  subscriptions). Direct `fetch` or REST calls for game state are prohibited.
+- The frontend communicates with the backend exclusively via GraphQL; local persistence mechanisms
   (localStorage, IndexedDB, cookies used for state) are prohibited in the frontend.
 - Styling MUST use MUI's `sx` prop or `styled()` utility — not raw CSS files or inline `style`
   objects.
@@ -97,4 +108,4 @@ This constitution supersedes all other development guidelines for this project. 
 
 All implementation plans and feature specs MUST reference and comply with this constitution.
 
-**Version**: 1.0.0 | **Ratified**: 2026-04-25 | **Last Amended**: 2026-04-25
+**Version**: 1.1.0 | **Ratified**: 2026-04-25 | **Last Amended**: 2026-05-03
